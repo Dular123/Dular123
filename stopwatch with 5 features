@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StopWatch</title>
+</head>
+<style>
+   /* styles.css */
+
+body {
+    font-family: 'Helvetica', sans-serif;
+    background-color: rgb(30, 29, 29);
+    opacity: 0.8;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+section {
+    background-color: black;
+    border: 2px solid #ffc107;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 300px;
+    width: 100%;
+}
+
+#countDown {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #e8dcdc;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+}
+
+.button {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.start-btn {
+    background-color: #ffc107;
+    color: black;
+}
+
+.reset-btn {
+    background-color: #ffc107;
+    color: black;
+}
+
+.stop-btn {
+    background-color: #ffc107;
+    color: black;
+}
+
+.time-btn, .clear-btn {
+    background-color: #ffc107;
+    color: black;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.resetValue {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+</style>
+<body>
+    <section>
+        <p id="countDown">0</p>
+        <div class="button">
+            <button class="start-btn">Start</button>
+            <button class="reset-btn">Reset</button>
+            <button class="stop-btn">Stop</button>
+            <button class="time-btn">Get Time</button>
+            <button class="clear-btn">Clear Time</button>
+        </div>
+        <div class="resetValue"></div>
+    </section>
+    <script>
+        // references
+        const countDownElement= document.getElementById("countDown");
+        const resetValueElement= document.querySelector(".resetValue");
+        let startCount=0;
+        let intervalId;
+
+        //start function
+       const startTimer=()=>{
+         intervalId=setInterval(()=>{
+            countDownElement.innerText=startCount++;
+        },1000);
+       };
+
+       //stop function
+       const stopTimer=( ) => {
+        clearInterval(intervalId);
+       };
+
+       //reset function 
+       const resetTimer = ( ) => {
+        startCount=0;
+        countDownElement.innerText=startCount;
+        clearInterval(intervalId);
+       };
+
+       //showTime function
+       const showStopValue = ( ) => {
+         const newPara=document.createElement("p");
+         newPara.innerText=`The stop Time Is ${startCount - 1}`;
+         resetValueElement.append(newPara);
+       };
+
+       //clear function
+       const clearTimeValue = ( ) =>{
+        resetValueElement.innerHTML="";
+       };
+         
+       //eventlisteners
+        document.querySelector(".start-btn").addEventListener("click",startTimer);
+        document.querySelector(".reset-btn").addEventListener("click",resetTimer);
+        document.querySelector(".stop-btn").addEventListener("click",stopTimer);
+        document.querySelector(".time-btn").addEventListener("click",showStopValue);
+        document.querySelector(".clear-btn").addEventListener("click",clearTimeValue);
+    </script>
+</body>
+</html>
